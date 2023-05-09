@@ -35,7 +35,7 @@ MCV2_data<-read_excel("Data/Coverage.xlsx",sheet="MCV2")
 ##Cases
 Case_data<-read_excel("Data/Coverage.xlsx",sheet="Cases")
 ###Average cases over the entire period###
-av_cases2<-sum(Case_data$Cases)/nrow(Case_data)
+av_cases<-sum(Case_data$Cases)/nrow(Case_data)
 ##########Observed seroprevalence###
 load("Data/obs_sero")
 df_obs<-obs_sero
@@ -56,7 +56,7 @@ LL_curr=-10000
 acceptance=0
 time<-system.time({    
   for(i in 2:iterations){
-    p_prop<-0.05*mvrnorm(1,(p_curr),scaling*(2.38^2)/d*cov0)+(1-0.05)*mvrnorm(1,(p_curr),scaling*(2.38^2)/d*cov)##How did this come about?
+    p_prop<-0.05*mvrnorm(1,(p_curr),scaling*(2.38^2)/d*cov0)+(1-0.05)*mvrnorm(1,(p_curr),scaling*(2.38^2)/d*cov)##Proposalfunction
     
     if(any(p_prop<0)|p_prop["beta1"]>1|p_prop["beta2"]>1|
        p_prop["beta3"]>1|p_prop["omega"]>1){
